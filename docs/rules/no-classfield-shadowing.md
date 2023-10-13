@@ -30,4 +30,4 @@ class MyEl extends LitElement {
 
 ## When Not To Use It
 
-If you don't care about class fields presents also as static properties.
+If you don't care about class fields with same name as static properties.
