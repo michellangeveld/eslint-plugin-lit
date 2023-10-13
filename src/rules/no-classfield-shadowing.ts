@@ -21,7 +21,7 @@ const rule: Rule.RuleModule = {
     schema: [],
     messages: {
       noClassfieldShadowing:
-        'The {{ prop }} attribute is a class member which is the same as ' +
+        'The {{ prop }} property is a class member which is the same as ' +
         'static property which can have unintended side-effects.'
     }
   },
