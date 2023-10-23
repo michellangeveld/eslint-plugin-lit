@@ -14,15 +14,10 @@ import {RuleTester} from 'eslint';
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 'latest'
-  }
-});
-
 const parser = require.resolve('@babel/eslint-parser');
 const parserOptions = {
+  sourceType: 'module',
+  ecmaVersion: 'latest',
   requireConfigFile: false,
   babelOptions: {
     plugins: [
@@ -30,6 +25,11 @@ const parserOptions = {
     ]
   }
 };
+
+const ruleTester = new RuleTester({
+  parser,
+  parserOptions
+});
 
 ruleTester.run('no-classfield-shadowing', rule, {
   valid: [
@@ -43,6 +43,11 @@ ruleTester.run('no-classfield-shadowing', rule, {
       properties = {
         foo: { type: String }
       }
+    }`,
+    `class Foo extends LitElement {
+      declare foo: string;
+
+      static properties = {foo: {type: String}};
     }`
   ],
 
@@ -152,8 +157,6 @@ ruleTester.run('no-classfield-shadowing', rule, {
 
         static properties = { foo: {} };
       }`,
-      parser,
-      parserOptions,
       errors: [
         {
           messageId: 'noClassfieldShadowing',
